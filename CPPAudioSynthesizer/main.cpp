@@ -29,6 +29,11 @@ int main()
 
 	//link MakeSound class with sound maker with function pointer
 	sound.SetUserFunction(MakeSound);
+	//bass octave
+	double dOctaveBassFreq = 110.0; //A2
+	//get standard 12 notes by power of 2 to the 12th root. Divides into 12 notes.
+	double d12thRootOf2 = pow(2.0, 1.0 / 12.0);
+
 	//while active
 	while (1)
 	{
@@ -37,7 +42,7 @@ int main()
 		if (GetAsyncKeyState('A' & 0x8000))
 		{
 			//set to 440.0 hz
-			dFrequencyOutput = 440.0;
+			dFrequencyOutput = dOctaveBassFreq * pow(d12thRootOf2, 0);
 		}
 		else
 		{
