@@ -3,11 +3,19 @@ using namespace std;
 
 #include "olcNoiseMaker.h"
 
+//use atomic to synch memory access to key binding thread
+atomic<double> dFrequencyOutput = 0.0;
+
 //create class that uses frequency formula with given time to generate sound
 double MakeSound(double dTime)
 {
-	//frequeny and hertz conversion to angular velocity (440.0 hertz == A4)
-	return 0.5 * sin(880.0 * 2 * 3.14159 * dTime);
+	//assign sine wave output to variable to manipulate
+	double dOutput = 1.0 * sin(220.0 * 2 * 3.14159 * dTime);
+	//set square wave thresholds
+	if (dOutput > 0.0)
+		return 0.2;
+	else
+		return -0.2;
 }
 int main()
 {
@@ -21,9 +29,20 @@ int main()
 
 	//link MakeSound class with sound maker with function pointer
 	sound.SetUserFunction(MakeSound);
-
+	//while active
 	while (1)
 	{
+		// add keyboard
+		//if keypressed specify a frequency
+		if (GetAsyncKeyState('A' & 0x8000))
+		{
+			//set to 440.0 hz
+			dFrequencyOutput = 440.0;
+		}
+		else
+		{
+			dFrequencyOutput = 0.0;
+		}
 
 	}
 	return 0;
