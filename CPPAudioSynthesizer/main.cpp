@@ -7,7 +7,7 @@ using namespace std;
 double MakeSound(double dTime)
 {
 	//frequeny and hertz conversion to angular velocity (440.0 hertz == A4)
-	return 0.5 * sin(440.0 * 2 * 3.14159 * dTime);
+	return 0.5 * sin(880.0 * 2 * 3.14159 * dTime);
 }
 int main()
 {
